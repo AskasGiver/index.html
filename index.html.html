@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>บิดกูทำไม - FULL SCREEN</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #000;
+            font-family: 'Kanit', sans-serif; /* ถ้าไม่มีจะใช้ sans-serif ปกติ */
+        }
+
+        .floating-text {
+            position: absolute;
+            font-weight: bold;
+            white-space: nowrap;
+            user-select: none;
+            pointer-events: none; /* ป้องกันการเผลอไปคลุมดำข้อความ */
+        }
+
+        /* สร้าง Animation ให้ลอยไปลอยมา */
+        @keyframes moveAround {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(10vw, 20vh) rotate(5deg); }
+            50% { transform: translate(-10vw, 40vh) rotate(-5deg); }
+            75% { transform: translate(20vw, 20vh) rotate(10deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="container"></div>
+
+    <script>
+        const container = document.getElementById('container');
+        const textCount = 60; // อยากให้เยอะแค่ไหนปรับตรงนี้ได้เลยครับ
+        const colors = ['#ff4757', '#ffa502', '#2ed573', '#1e90ff', '#ffffff', '#eccc68', '#ff6b81'];
+
+        for (let i = 0; i < textCount; i++) {
+            const div = document.createElement('div');
+            div.className = 'floating-text';
+            div.innerText = 'บิดกูทำไม';
+            
+            // สุ่มขนาด (20px - 100px)
+            const fontSize = Math.floor(Math.random() * 80) + 20;
+            // สุ่มตำแหน่งเริ่มต้น
+            const posX = Math.random() * 100;
+            const posY = Math.random() * 100;
+            // สุ่มความเร็ว (5s - 15s)
+            const duration = Math.random() * 10 + 5;
+            // สุ่มสีจาก Array
+            const color = colors[Math.floor(Math.random() * colors.length)];
+
+            div.style.fontSize = fontSize + 'px';
+            div.style.left = posX + 'vw';
+            div.style.top = posY + 'vh';
+            div.style.color = color;
+            div.style.opacity = Math.random() * 0.7 + 0.3; // สุ่มความโปร่งใส
+            
+            // ใส่ Animation แบบสุ่มหน่วงเวลา
+            div.style.animation = `moveAround ${duration}s linear infinite`;
+            div.style.animationDelay = `-${Math.random() * 10}s`;
+
+            container.appendChild(div);
+        }
+    </script>
+</body>
+</html>
